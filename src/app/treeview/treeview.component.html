@@ -1,0 +1,19 @@
+<ng-container *ngTemplateOutlet="treeViewList; 
+                                 context:{$implicit:data}">
+</ng-container>
+
+
+<ng-template #treeViewList let-list>
+    <ul>
+        <li *ngFor="let item of list;let i=index" 
+            [ngClass]="{caret: item.children.length , 'caret-down': item.isOpen }">
+            <span (click)="getSelection(item)" >{{item.text}}</span>
+            <div [ngClass]="{nested : !item.isOpen, active: item.isOpen }">
+                <ng-container *ngTemplateOutlet="treeViewList;
+                context:{$implicit: item.children}">
+                </ng-container>
+            </div>
+
+        </li>
+    </ul>
+</ng-template>
